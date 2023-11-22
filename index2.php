@@ -57,9 +57,12 @@
               ?>
           </tbody>
      </table>
-      <div class="text-center">
-           <button type="button" class="btn btn-primary"><a href="inserir2.php">Adicionar notebook</a></button>
-      </div>
+      <div class="btn-container">
+            <button type="button" class="btn btn-primary"><a href="inserir2.php">Adicionar notebook</a></button>
+            <button type="button" class="btn btn-primary"><a href="inventarioPlanilha.php">Baixar Planilha</a></button>
+        </div>
+
+    
        <?php
             // Função para formatar a data
             function formatoData($data) {
