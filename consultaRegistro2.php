@@ -56,7 +56,7 @@ if (!$resultado2) {
     die("Erro na consulta: " . mysqli_error($conexao));
 }
 
-$nomeUsuario = ""; // Inicializa a variável para armazenar o nome do usuário
+$nomeUsuario = ""; // Iniciadliza a variável para armazenar o nome do usuário
 
 // Verifica se a consulta retornou algum resultado
 if ($row = mysqli_fetch_assoc($resultado2)) {

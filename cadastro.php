@@ -4,7 +4,7 @@
     <title>Cadastro de Usuário</title>
 </head>
 <body>
-    <h1>Cadastro de Usuário</h1>
+    <h1>Cadastro de Usuários</h1>
     <form action="registro.php" method="post" enctype="multipart/form-data">
         <label for="nome">Nome:</label>
         <input type="text" id="nome" name="nome" required><br><br>

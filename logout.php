@@ -5,7 +5,7 @@ session_start();
 // Destrua a sessão
 session_destroy();
 
-// Redirecione o usuário de volta para a página de login
+// Redirecione o usuádrio de volta para a página de login
 header("Location: login.php");
 exit();
 ?>

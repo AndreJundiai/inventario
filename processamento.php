@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Use a função mysqli para estabelecer a conexão
         $conexao = mysqli_connect($host, $usuario, $senha, $banco);
 
-        // Verifica se a conexão foi estabelecida corretamente
+        // Verifica sde a conexão foi estabelecida corretamente
         if (!$conexao) {
             echo 'Falha na conexão com o banco de dados: ' . mysqli_connect_error();
             exit;

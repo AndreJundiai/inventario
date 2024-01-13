@@ -36,7 +36,7 @@ if (!isset($_SESSION["id_usuario"])) {
         <input type="submit" name="acao" value="Registrar Entrada">
         
         <?php
-        // Verifique se a entrada do almoço já foi registrada e, se não, exiba o botão "Registrar Início Almoço"
+        // Verifique se a entrada do almoço já foi registrada e, dse não, exiba o botão "Registrar Início Almoço"
         if (!$entradaAlmocoRegistrada) {
             echo '<input type="submit" name="acao" value="Registrar Inicio Almoço">';
         }
