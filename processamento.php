@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (mysqli_stmt_execute($stmt)) {
                 echo 'Registro de ' . $acao . ' realizado com sucesso!';
             } else {
-                echo 'Erro ao realizar o registro de ' . $acao . ': ' . mysqli_error($conexao);
+                echo 'Erro ao realizar o registro de ponto ' . $acao . ': ' . mysqli_error($conexao);
             }
         } else {
             echo 'Ação desconhecida!';

@@ -53,7 +53,7 @@ if (!isset($_SESSION["id_usuario"])) {
     
 
     <footer>
-        Sobre o Projeto do André
+        Sobre o Projeto do André, projeto top
         <hr> 
     </footer>
 </body>

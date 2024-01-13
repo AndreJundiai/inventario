@@ -10,7 +10,7 @@ if (isset($_POST['submit_button'])) {
     } elseif ($acao == 'Registrar Almoço') {
         // Código para registrar o almoço
     } elseif ($acao == 'Registrar Saída') {
-        // Código para registrar a saída
+        // Código para registrar a saída e
     }
 }
 ?>

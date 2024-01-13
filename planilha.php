@@ -26,7 +26,7 @@ $html = "<table>
 <th> Início do Almoço </th>
 <th> Fim do Almoço  </th>
 <th>  Hora da Saída  </th>
-<th>  Minutos Extras  </th>
+<th>  Banco de Horas  </th>
 </tr>
 </thead>
 <tbody>";

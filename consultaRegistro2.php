@@ -139,7 +139,7 @@ if ($row = mysqli_fetch_assoc($resultado2)) {
             </tbody>
         </table>
     <?php else : ?>
-        <p class="error">Nenhum registro encontrado.</p>
+        <p class="error">Nenhum registro encontrado hoje.</p>
     <?php endif; ?>
 </body>
 </html>

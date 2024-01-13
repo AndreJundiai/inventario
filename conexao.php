@@ -69,7 +69,7 @@ function abrirBanco() {
         $sql = "SELECT * FROM pessoa ORDER BY nome";
         $resultado = $banco->query($sql);
         $banco->close();
-        // Laço que pega as informações do meu banco, organiza linha a linha e armazena na var $grupo
+        // Laço que pega as informações do meu banco, organiza linha a linha e armazena na var $grupo sim
         while($row = mysqli_fetch_array($resultado)) {
             $grupo[] = $row;
         }
