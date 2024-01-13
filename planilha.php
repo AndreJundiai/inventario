@@ -17,7 +17,7 @@ FROM pontoRegistro
 ");
 $contar = mysqli_num_rows($query);
 
-// Criação de uma tabela HTML que se pdarece com uma planilha Excel
+// Criação de uma tabela HTML que se pdadrece com uma planilha Excel
 $html = "<table>
 <thead>
 <tr>

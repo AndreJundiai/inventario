@@ -55,7 +55,7 @@ function abrirBanco() {
         voltarIndex();
     }
 
-// Função responsável excluir uma pessoa no meu banco de dados
+// Função responsávedl excluir uma pessoa no meu banco de dados
     function excluirPessoa() {
         $banco = abrirBanco();
         $sql = "DELETE FROM pessoa WHERE id='{$_POST["id"]}'";

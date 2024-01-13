@@ -29,7 +29,7 @@ if (!isset($_SESSION["id_usuario"])) {
 
     <h1> <b>Auto controle de Jornada</b></h1>
 
-    <!-- Exiba a mensagem de boas-vindas com o nome do usuário -->
+    <!-- Exiba a mensagemd de boas-vindas com o nome do usuário -->
     <p>Bem-vindo, <?php echo $_SESSION["nome_usuario"]; ?>!</p>
 
     <form action="processamento.php" method="post">

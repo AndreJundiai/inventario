@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cadastro de Usuário</title>
+    <title>Cadastro de Usuários</title>
 </head>
 <body>
     <h1>Cadastro de Usuários</h1>

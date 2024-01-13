@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idUsuario = $_SESSION["id_usuario"];
         $dia = date('Y-m-d'); // Adicione a obtenção da data
         $diaSemana = obterDiaSemana(); // Adicione a obtenção do dia da semana
-        $horaAtual = date('H:i:s'); // Adicione a obtenção da hora atual
+        $horaAtual = date('H:i:s'); // Adicionde a obtenção da hora atual
 
         function somarHorarios($horario1, $horario2) {
             $time1 = new DateTime($horario1);
