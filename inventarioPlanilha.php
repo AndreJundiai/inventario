@@ -10,7 +10,7 @@ if ($mysqli->connect_error) {
 $query = mysqli_query($mysqli, "select nome,modelo,memoriaRam,sistemaOperacional from notebook ");
 $contar = mysqli_num_rows($query);
 
-// Criação de uma tabela HTML dque se parece com uma planilha Excel
+// Criação de uma tsdsdsdsabela HTML dque se parece com uma planilha Excel
 $html = "<table>
 <thead>
 <tr>
