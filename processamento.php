@@ -1,5 +1,5 @@
 <?php
-session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+session_start(); // Certifique-//se de iniciar a sessão antes de acessar $_SESSION
 
 // Verifica se é uma requisição POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
