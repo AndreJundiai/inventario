@@ -7,31 +7,35 @@ if ($mysqli->connect_error) {
     die("Falha na conexão: " . $mysqli->connect_error);
 }
 
-$query = mysqli_query($mysqli, "SELECT dia,
-       hora_entrada,
-       hora_almoço_entrada,
-       hora_almoço_saida,
-       hora_saida,
-       (TIMESTAMPDIFF(MINUTE, hora_entrada, hora_saida) - TIMESTAMPDIFF(MINUTE, hora_almoço_entrada, hora_almoço_saida) - 480)  AS minutosExtras
-FROM pontoRegistro
-");
-$contar = mysqli_num_rows($query);
+session_start();
+$idUsuario = $_SESSION["id_usuario"];
+$idUsuario = $mysqli->real_escape_string($idUsuario);
 
-// Criação de uma tabela HTML que se pdadrece com uma planilha Excel
+$query = "SELECT dia,
+                  hora_entrada,
+                  hora_almoço_entrada,
+                  hora_almoço_saida,
+                  hora_saida,
+                  TIMESTAMPDIFF(MINUTE, hora_entrada, hora_saida) - TIMESTAMPDIFF(MINUTE, hora_almoço_entrada, hora_almoço_saida) AS minutosExtras
+           FROM pontoRegistro
+           WHERE idUsuario = '$idUsuario'";
+$result = $mysqli->query($query);
+
+// Criação de uma tabela HTML que se assemelha a uma planilha Excel
 $html = "<table>
 <thead>
 <tr>
-<th>Dia </th>
-<th>Hora Entrada </th>
-<th> Início do Almoço </th>
-<th> Fim do Almoço  </th>
-<th>  Hora da Saída  </th>
-<th>  Banco de Horas  </th>
+<th>Dia</th>
+<th>Hora Entrada</th>
+<th>Início do Almoço</th>
+<th>Fim do Almoço</th>
+<th>Hora da Saída</th>
+<th>Banco de Horas</th>
 </tr>
 </thead>
 <tbody>";
 
-while ($ret = mysqli_fetch_array($query)) {
+while ($ret = $result->fetch_assoc()) {
     $retorno_dia = $ret['dia'];
     $retorno_hora_entrada = $ret['hora_entrada'];
     $retorno_horario_almoco_entrada = $ret['hora_almoço_entrada'];
