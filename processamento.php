@@ -1,5 +1,5 @@
 <?php
-session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
+session_start(); // Cert/s/d/sifique-se de iniciar a sessão antes de acessar $_SESSION
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['acao'])) {
