@@ -1,100 +1,134 @@
 <?php
-session_start(); // Cert/s/d/sifique-se de iniciar a sessão antes de acessar $_SESSION
+session_start(); // Certifique-se de iniciar a sessão antes de acessar $_SESSION
 
+// Verifica se é uma requisição POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Verifica se a ação foi recebida
     if (isset($_POST['acao'])) {
         $acao = $_POST['acao'];
+        echo "Ação recebida: " . $acao . "<br>"; // Depuração
+    }
 
-        // Conexão com o banco de dados (substitua os valores conforme sua configuração)
-        $host = 'localhost';
-        $usuario = 'root';
-        $senha = '1234';
-        $banco = 'novoBD';
+    // Verifica se o feriado foi recebido
+    if (isset($_POST['feriado'])) {
+        $feriado = $_POST['feriado'];
+        echo "Feriado recebido: " . $feriado . "<br>"; // Depuração
+    }
 
-        // Use a função mysqli para estabelecer a conexão
-        $conexao = mysqli_connect($host, $usuario, $senha, $banco);
+    // Verifica se o atestado foi recebido
+    if (isset($_POST['atestado'])) {
+        $atestado = $_POST['atestado'];
+        echo "Atestado recebido: " . $atestado . "<br>"; // Depuração
+    }
 
-        // Verifica sde a conexão foi estabelecida corretamente
-        if (!$conexao) {
-            echo 'Falha na conexão com o banco de dados: ' . mysqli_connect_error();
-            exit;
-        }
+    // Informações de conexão com o banco de dados
+    $host = 'localhost';
+    $usuario = 'root';
+    $senha = '1234';
+    $banco = 'novoBD';
 
-        function obterDiaSemana() {
-            $diaDaSemana = date("N");
+    // Conexão com o banco de dados
+    $conexao = mysqli_connect($host, $usuario, $senha, $banco);
 
-            // Verifica o dia da semana e retorna o nome correspondente
-            $dias = [
-                1 => "Segunda-feira",
-                2 => "Terça-feira",
-                3 => "Quarta-feira",
-                4 => "Quinta-feira",
-                5 => "Sexta-feira",
-                6 => "Sábado",
-                7 => "Domingo"
-            ];
+    // Verifica se a conexão foi estabelecida
+    if (!$conexao) {
+        echo 'Falha na conexão com o banco de dados: ' . mysqli_connect_error();
+        exit;
+    }
 
-            return $dias[$diaDaSemana] ?? "Dia inválido";
-        }
+    // Função para obter o dia da semana
+    function obterDiaSemana() {
+        $diaDaSemana = date("N");
+        $dias = [
+            1 => "Segunda-feira",
+            2 => "Terça-feira",
+            3 => "Quarta-feira",
+            4 => "Quinta-feira",
+            5 => "Sexta-feira",
+            6 => "Sábado",
+            7 => "Domingo"
+        ];
 
-        $idUsuario = $_SESSION["id_usuario"];
-        $dia = date('Y-m-d'); // Adicione a obtenção da data
-        $diaSemana = obterDiaSemana(); // Adicione a obtenção do dia da semana
-        $horaAtual = date('H:i:s'); // Adicionde a obtenção da hora atual
+        return $dias[$diaDaSemana] ?? "Dia inválido";
+    }
 
-        function somarHorarios($horario1, $horario2) {
-            $time1 = new DateTime($horario1);
-            $time2 = new DateTime($horario2);
 
-            $resultado = $time1->sub($time2->diff(new DateTime('00:00:00')));
 
-            return $resultado->format('H:i:s');
-        }
 
-        $acao = mysqli_real_escape_string($conexao, $acao);
+    // Função para registrar o ponto
+    function registrarPonto($tipoRegistro) {
+        global $conexao, $dia, $diaSemana, $horaAtual, $idUsuario;
+    
+        // Verifica se há justificativa
+        $justificativa = isset($_POST['mostrarTexto']) ? $_POST['textoParaMostrar'] : "";
 
-        if ($acao === "Registrar Entrada") {
-            $query = "INSERT INTO pontoRegistro (dia, diaSemana, hora_entrada, idUsuario) VALUES (?, ?, ?, ?)";
+
+        if ($tipoRegistro == "hora_entrada") {
+            $query = "INSERT INTO pontoRegistro (dia, diaSemana, $tipoRegistro, idUsuario, justificativa) VALUES (?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($conexao, $query);
-            mysqli_stmt_bind_param($stmt, "ssss", $dia, $diaSemana, $horaAtual, $idUsuario);
-
-            if (mysqli_stmt_execute($stmt)) {
-                echo 'Registro de ' . $acao . ' realizado com sucesso!';
-            } else {
-                echo 'Erro ao realizar o registro de ' . $acao . ': ' . mysqli_error($conexao);
-            }
-        } elseif ($acao === 'Registrar Inicio Almoço' || $acao === 'Registrar Saída' || $acao === 'Registrar Fim Almoço') {
-            // Adicione a obtenção da data, dia da semana e hora atual como feito anteriormente
-
-            $campoHora = '';
-            switch ($acao) {
-                case 'Registrar Inicio Almoço':
-                    $query = "UPDATE pontoRegistro SET hora_almoço_entrada = ? WHERE dia = ?";
-                    break;
-                case 'Registrar Saída':
-                    $query = "UPDATE pontoRegistro SET hora_saida = ? WHERE dia = ?";
-                    break;
-                case 'Registrar Fim Almoço':
-                    $query = "UPDATE pontoRegistro SET hora_almoço_saida = ? WHERE dia = ?";
-                    break;
-                default:
-                    break;
-            }
-
+        } else {
+            $query = "UPDATE pontoRegistro SET $tipoRegistro = ? WHERE dia = ?";
             $stmt = mysqli_prepare($conexao, $query);
             mysqli_stmt_bind_param($stmt, "ss", $horaAtual, $dia);
-
-            if (mysqli_stmt_execute($stmt)) {
-                echo 'Registro de ' . $acao . ' realizado com sucesso!';
-            } else {
-                echo 'Erro ao realizar o registro de ponto ' . $acao . ': ' . mysqli_error($conexao);
-            }
-        } else {
-            echo 'Ação desconhecida!';
         }
+        
 
-        // Fechar a conexão com o banco de dados
-        mysqli_close($conexao);
+
+    
+        // Verifica se a preparação da query foi bem-sucedida
+        if ($stmt) {
+            // Liga os parâmetros
+            mysqli_stmt_bind_param($stmt, "sssss", $dia, $diaSemana, $horaAtual, $idUsuario, $justificativa);
+    
+            // Executa a query
+            if (mysqli_stmt_execute($stmt)) {
+                echo "Registro de ponto realizado com sucesso!";
+            } else {
+                echo "Erro ao registrar ponto!";
+            }
+    
+            // Fecha a declaração
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Erro na preparação da query!";
+        }
     }
 }
-?>
+    
+
+
+
+
+
+
+    // Obtém informações do usuário logado
+    $idUsuario = $_SESSION["id_usuario"];
+    $dia = date('Y-m-d');
+    $diaSemana = obterDiaSemana();
+    $horaAtual = date('H:i:s');
+
+    // Verifica se a ação foi definida
+    if (isset($acao)) {
+        $acao = mysqli_real_escape_string($conexao, $acao);
+
+        // Verifica a ação a ser realizada
+        switch ($acao) {
+            case "Registrar Entrada":
+                registrarPonto("hora_entrada");
+                break;
+            case "Registrar Saída":
+                registrarPonto("hora_saida");
+                break;
+            case "Registrar Inicio Almoço":
+                registrarPonto("hora_almoço_entrada");
+                break;
+            case "Registrar Fim Almoço":
+                registrarPonto("hora_almoço_saida");
+                break;
+            // Caso não haja uma ação válida
+            default:
+                echo "Ação inválida!";
+        }
+    }
+
+    // Função para registrar o ponto
